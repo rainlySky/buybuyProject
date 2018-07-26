@@ -23,11 +23,13 @@
                         <a>退出</a>
                         <strong>|</strong>
                     </span>
-                    <a href="" class="">
-                        <i class="iconfont icon-cart"></i>购物车(
+                      <router-link to="/shopCar">
+                       <i class="iconfont icon-cart"></i>购物车(
                         <span id="shoppingCartCount">
                             <span>4</span>
-                        </span>)</a>
+                        </span>)
+                      </router-link>
+                       
                 </div>
             </div>
         </div>
@@ -122,13 +124,31 @@
 
 <script>
 
-
+import $ from 'jquery';
 export default {
   name: 'app',
+  mounted:function() {
+      $("#menu2 li a").wrapInner( '<span class="out"></span>' );
+	$("#menu2 li a").each(function() {
+		$( '<span class="over">' +  $(this).text() + '</span>' ).appendTo( this );
+	});
+
+	$("#menu2 li a").hover(function() {
+		$(".out",	this).stop().animate({'top':	'48px'},	300); // move down - hide
+		$(".over",	this).stop().animate({'top':	'0px'},		300); // move down - show
+
+	}, function() {
+		$(".out",	this).stop().animate({'top':	'0px'},		300); // move up - show
+		$(".over",	this).stop().animate({'top':	'-48px'},	300); // move up - hide
+	});
+
+  },
   
 }
 </script>
 
 <style>
+
     @import url('./assets/statics/site/css/style.css');
+    @import url('./assets/statics/lib/css/style.css');
 </style>
